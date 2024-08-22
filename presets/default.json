@@ -44,7 +44,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": -1,
     "checkpoint_downloads": {
-        "SPEC-2-FRACTAL": "https://huggingface.co/SVECTOR-CORPORATION/Spec-2-Fractal/resolve/main/Spec-2_juggernautXL_v8Rundiffusion.safetensors"
+        "SPEC-2-FRACTAL": "https://huggingface.co/SVECTOR-CORPORATION/Spec-2-Fractal/resolve/main/specXL_v8Rundiffusion.safetensors"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
