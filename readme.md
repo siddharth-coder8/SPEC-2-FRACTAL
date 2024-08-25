@@ -1,18 +1,18 @@
 <div align=center>
-<img src="https://github.com/lllyasviel/Fooocus/assets/19834515/483fb86d-c9a2-4c20-997c-46dafc124f25">
+<img src=https://firebasestorage.googleapis.com/v0/b/svector-cloud.appspot.com/o/files%2FIMG_20240822_013010.jpg?alt=media&token=eab24630-062a-4c61-ba6f-ee8366997727">
 
 **Non-cherry-picked** random batch by just typing two words "forest elf", 
 
 without any parameter tweaking, without any strange prompt tags. 
 
-See also **non-cherry-picked** generalization and diversity tests [here](https://github.com/lllyasviel/Fooocus/discussions/2067) and [here](https://github.com/lllyasviel/Fooocus/discussions/808) and [here](https://github.com/lllyasviel/Fooocus/discussions/679) and [here](https://github.com/lllyasviel/Fooocus/discussions/679#realistic).
+See also **non-cherry-picked** generalization and diversity tests [here](https://github.com/svector-corporation/)
 
-In the entire open source community, only Fooocus can achieve this level of **non-cherry-picked** quality.
+
 
 </div>
 
 
-# Fooocus
+# SPEC
 
 Fooocus is an image generating software (based on [Gradio](https://www.gradio.app/)).
 
