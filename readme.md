@@ -3,7 +3,7 @@
 
 **SPEC-2-FRACTAL** [here](https://github.com/svector-corporation/)
 
-**SPEC-2-FRACTAL MODEL** [here](https://huggingface.com/svector-corporation/spec-2-fractal)
+**SPEC-2-FRACTAL MODEL** [here](https://huggingface.co/svector-corporation/spec-2-fractal)
 
 
 
