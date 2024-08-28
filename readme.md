@@ -14,34 +14,30 @@ See also **non-cherry-picked** generalization and diversity tests [here](https:/
 
 # SPEC
 
-Fooocus is an image generating software (based on [Gradio](https://www.gradio.app/)).
+SPEC-2-FRACTAL WEB UI is an image generating software (based on [Gradio](https://www.gradio.app/)).
 
-Fooocus is a rethinking of Stable Diffusion and Midjourney’s designs:
+SPEC-2-FRACTAL is a Web UI OF SPEC-2-FRACTAL MODEL to use on device or on cloud:
 
-* Learned from Stable Diffusion, the software is offline, open source, and free.
+* The software is offline, open source, and free.
 
-* Learned from Midjourney, the manual tweaking is not needed, and users only need to focus on the prompts and images.
+* The manual tweaking is not needed, and users only need to focus on the prompts and images.
 
-Fooocus has included and automated [lots of inner optimizations and quality improvements](#tech_list). Users can forget all those difficult technical parameters, and just enjoy the interaction between human and computer to "explore new mediums of thought and expanding the imaginative powers of the human species" `[1]`.
+SPEC-2-FRACTAL Web UI has included and automated [lots of inner optimizations and quality improvements](#tech_list). Users can forget all those difficult technical parameters, and just enjoy the interaction between human and computer to "explore new mediums of thought and expanding the imaginative powers of the human species" `[1]`.
 
-Fooocus has simplified the installation. Between pressing "download" and generating the first image, the number of needed mouse clicks is strictly limited to less than 3. Minimal GPU memory requirement is 4GB (Nvidia).
+SPEC-2-FRACTAL has simplified the installation. Between pressing "download" and generating the first image, the number of needed mouse clicks is strictly limited to less than 3. Minimal GPU memory requirement is 4GB (Nvidia).
 
-`[1]` David Holz, 2019.
+## [Installing SPEC-2-FRACTAL](#download)
 
-**Recently many fake websites exist on Google when you search “fooocus”. Do not trust those – here is the only official source of Fooocus.**
+# Moving from Midjourney to SPEC-2-FRACTAL Web UI
 
-## [Installing Fooocus](#download)
+Using SPEC-2-FRACTAL Web UI is as easy as best image generation model than Midjourney 
 
-# Moving from Midjourney to Fooocus
-
-Using Fooocus is as easy as (probably easier than) Midjourney – but this does not mean we lack functionality. Below are the details.
-
-| Midjourney | Fooocus |
+| SPEC-2-FRACTAL |
 | - | - |
 | High-quality text-to-image without needing much prompt engineering or parameter tuning. <br> (Unknown method) | High-quality text-to-image without needing much prompt engineering or parameter tuning. <br> (Fooocus has an offline GPT-2 based prompt processing engine and lots of sampling improvements so that results are always beautiful, no matter if your prompt is as short as “house in garden” or as long as 1000 words) |
 | V1 V2 V3 V4 | Input Image -> Upscale or Variation -> Vary (Subtle) / Vary (Strong)|
 | U1 U2 U3 U4 | Input Image -> Upscale or Variation -> Upscale (1.5x) / Upscale (2x) |
-| Inpaint / Up / Down / Left / Right (Pan) | Input Image -> Inpaint or Outpaint -> Inpaint / Up / Down / Left / Right <br> (Fooocus uses its own inpaint algorithm and inpaint models so that results are more satisfying than all other software that uses standard SDXL inpaint method/model) |
+| Inpaint / Up / Down / Left / Right (Pan) | Input Image -> Inpaint or Outpaint -> Inpaint / Up / Down / Left / Right <br> (SPEC-2-FRACTAL Web UI uses its own inpaint algorithm and inpaint models so that results are more satisfying than all other software that uses standard SDXL inpaint method/model) |
 | Image Prompt | Input Image -> Image Prompt <br> (Fooocus uses its own image prompt algorithm so that result quality and prompt understanding are more satisfying than all other software that uses standard SDXL methods like standard IP-Adapters or Revisions) |
 | --style | Advanced -> Style |
 | --stylize | Advanced -> Advanced -> Guidance |
@@ -434,35 +430,13 @@ Processed only for positive prompt.
 
 Applies a LoRA to the prompt. The LoRA file must be located in the `models/loras` directory.
 
-
-## Advanced Features
-
-[Click here to browse the advanced features.](https://github.com/lllyasviel/Fooocus/discussions/117)
-
-## Forks
-Fooocus also has many community forks, just like SD-WebUI's [vladmandic/automatic](https://github.com/vladmandic/automatic) and [anapnoe/stable-diffusion-webui-ux](https://github.com/anapnoe/stable-diffusion-webui-ux), for enthusiastic users who want to try!
-
-| Fooocus' forks |
-| - |
-| [fenneishi/Fooocus-Control](https://github.com/fenneishi/Fooocus-Control) </br>[runew0lf/RuinedFooocus](https://github.com/runew0lf/RuinedFooocus) </br> [MoonRide303/Fooocus-MRE](https://github.com/MoonRide303/Fooocus-MRE) </br> [metercai/SimpleSDXL](https://github.com/metercai/SimpleSDXL) </br> [mashb1t/Fooocus](https://github.com/mashb1t/Fooocus) </br> and so on ... |
-
-See also [About Forking and Promotion of Forks](https://github.com/lllyasviel/Fooocus/discussions/699).
-
-## Thanks
-
-Special thanks to [twri](https://github.com/twri) and [3Diva](https://github.com/3Diva) and [Marc K3nt3L](https://github.com/K3nt3L) for creating additional SDXL styles available in Fooocus. Thanks [daswer123](https://github.com/daswer123) for contributing the Canvas Zoom!
-
-## Update Log
-
-The log is [here](update_log.md).
-
 ## Localization/Translation/I18N
 
-**We need your help!** Please help translate Fooocus into international languages.
+**We need your help!** Please help translate SPEC-2-FRACTAL into international languages.
 
 You can put json files in the `language` folder to translate the user interface.
 
-For example, below is the content of `Fooocus/language/example.json`:
+For example, below is the content of `SPEC-2-FRACTAL Web UI/language/example.json`:
 
 ```json
 {
@@ -473,20 +447,19 @@ For example, below is the content of `Fooocus/language/example.json`:
 }
 ```
 
-If you add `--language example` arg, Fooocus will read `Fooocus/language/example.json` to translate the UI.
+If you add `--language example` arg, SPEC-2-FRACTAL will read `SPEC-2-FRACTAL/language/example.json` to translate the UI.
 
 For example, you can edit the ending line of Windows `run.bat` as
 
-    .\python_embeded\python.exe -s Fooocus\entry_with_update.py --language example
+    .\python_embeded\python.exe -s
 
 Or `run_anime.bat` as
 
-    .\python_embeded\python.exe -s Fooocus\entry_with_update.py --language example --preset anime
+    .\python_embeded\python.exe -s SPEC-2-FRACTAL\entry_with_update.py --language example --preset anime
 
 Or `run_realistic.bat` as
 
-    .\python_embeded\python.exe -s Fooocus\entry_with_update.py --language example --preset realistic
+    .\python_embeded\python.exe -s SPEC-2-FRACTAL\entry_with_update.py --language example --preset realistic
 
-For practical translation, you may create your own file like `Fooocus/language/jp.json` or `Fooocus/language/cn.json` and then use flag `--language jp` or `--language cn`. Apparently, these files do not exist now. **We need your help to create these files!**
+For practical translation, you may create your own file like `SPEC-2-FRACTAL/language/jp.json` or `SPEC-2-FRACTAL/language/cn.json` and then use flag `--language jp` or `--language cn`. Apparently, these files do not exist now. **We need your help to create thesePEC-2-FRACTAL/language/default.json` files!**
 
-Note that if no `--language` is given and at the same time `Fooocus/language/default.json` exists, Fooocus will always load `Fooocus/language/default.json` for translation. By default, the file `Fooocus/language/default.json` does not exist.
