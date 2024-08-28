@@ -1,11 +1,9 @@
 <div align=center>
 <img src=https://firebasestorage.googleapis.com/v0/b/svector-cloud.appspot.com/o/files%2FIMG_20240822_013010.jpg?alt=media&token=eab24630-062a-4c61-ba6f-ee8366997727">
 
-**Non-cherry-picked** random batch by just typing two words "forest elf", 
+**SPEC-2-FRACTAL** [here](https://github.com/svector-corporation/)
 
-without any parameter tweaking, without any strange prompt tags. 
-
-See also **non-cherry-picked** generalization and diversity tests [here](https://github.com/svector-corporation/)
+**SPEC-2-FRACTAL MODEL** [here](https://huggingface.com/svector-corporation/spec-2-fractal)
 
 
 
