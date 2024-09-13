@@ -6,12 +6,12 @@ import torch
 import sys
 
 class VRAMState(Enum):
-    DISABLED = 0    # No vram present: no need to move models to vram
-    NO_VRAM = 1     # Very low vram: enable all the options to save vram
+    DISABLED = 0    #No vram present: no need to move models to vram
+    NO_VRAM = 1     #Very low vram: enable all the options to save vram
     LOW_VRAM = 2
     NORMAL_VRAM = 3
     HIGH_VRAM = 4
-    SHARED = 5      # No dedicated vram: memory shared between CPU and GPU but models still need to be moved between both.
+    SHARED = 5      #No dedicated vram: memory shared between CPU and GPU but models still need to be moved between both.
 
 class CPUState(Enum):
     GPU = 0
@@ -21,9 +21,10 @@ class CPUState(Enum):
 # Determine VRAM State
 vram_state = VRAMState.NORMAL_VRAM
 set_vram_to = VRAMState.NORMAL_VRAM
-cpu_state = CPUState.GPU  # Defaulting to GPU, but will check if GPU is available
+cpu_state = CPUState.GPU
 
 total_vram = 0
+
 lowvram_available = True
 xpu_available = False
 
@@ -40,8 +41,9 @@ if args.directml is not None:
         directml_device = torch_directml.device()
     else:
         directml_device = torch_directml.device(device_index)
-    print("Using DirectML with device:", torch_directml.device_name(device_index))
-    lowvram_available = False  # TODO: Find a way to get free memory in DirectML.
+    print("Using directml with device:", torch_directml.device_name(device_index))
+    # torch_directml.disable_tiled_resources(True)
+    lowvram_available = False #TODO: need to find a way to get free memory in directml before this can be enabled by default.
 
 try:
     import intel_extension_for_pytorch as ipex
@@ -54,50 +56,39 @@ try:
     if torch.backends.mps.is_available():
         cpu_state = CPUState.MPS
         import torch.mps
-        print("MPS (Apple Silicon) available")
 except:
     pass
 
-# Handling --always_cpu flag
 if args.always_cpu:
     if args.always_cpu > 0:
         torch.set_num_threads(args.always_cpu)
     print(f"Running on {torch.get_num_threads()} CPU threads")
     cpu_state = CPUState.CPU
 
-# Determine device: either GPU, MPS (macOS), or CPU
-def get_torch_device():
-    global directml_enabled
-    global cpu_state
-
-    if directml_enabled:
-        global directml_device
-        return directml_device
-
-    if cpu_state == CPUState.MPS:
-        return torch.device("mps")  # macOS (Apple Silicon)
-
-    if cpu_state == CPUState.CPU:
-        return torch.device("cpu")  # CPU fallback
-
-    if torch.cuda.is_available():
-        print("CUDA (GPU) is available. Running on GPU.")
-        return torch.device("cuda")  # GPU (CUDA)
-
-    if is_intel_xpu():
-        return torch.device("xpu")  # Intel XPU
-
-    print("CUDA not available, falling back to CPU.")
-    return torch.device("cpu")  # Default fallback to CPU if no GPU is available
-
 def is_intel_xpu():
     global cpu_state
     global xpu_available
-    if cpu_state == CPUState.GPU and xpu_available:
-        return True
+    if cpu_state == CPUState.GPU:
+        if xpu_available:
+            return True
     return False
 
-# Get total memory (VRAM or system memory)
+def get_torch_device():
+    global directml_enabled
+    global cpu_state
+    if directml_enabled:
+        global directml_device
+        return directml_device
+    if cpu_state == CPUState.MPS:
+        return torch.device("mps")
+    if cpu_state == CPUState.CPU:
+        return torch.device("cpu")
+    else:
+        if is_intel_xpu():
+            return torch.device("xpu")
+        else:
+            return torch.device(torch.cuda.current_device())
+
 def get_total_memory(dev=None, torch_total_too=False):
     global directml_enabled
     if dev is None:
@@ -108,7 +99,7 @@ def get_total_memory(dev=None, torch_total_too=False):
         mem_total_torch = mem_total
     else:
         if directml_enabled:
-            mem_total = 1024 * 1024 * 1024  # TODO
+            mem_total = 1024 * 1024 * 1024 #TODO
             mem_total_torch = mem_total
         elif is_intel_xpu():
             stats = torch.xpu.memory_stats(dev)
@@ -124,25 +115,22 @@ def get_total_memory(dev=None, torch_total_too=False):
 
     if torch_total_too:
         return (mem_total, mem_total_torch)
-    return mem_total
+    else:
+        return mem_total
 
-# Print total available VRAM and RAM
 total_vram = get_total_memory(get_torch_device()) / (1024 * 1024)
 total_ram = psutil.virtual_memory().total / (1024 * 1024)
-print(f"Total VRAM {total_vram:.0f} MB, total RAM {total_ram:.0f} MB")
-
+print("Total VRAM {:0.0f} MB, total RAM {:0.0f} MB".format(total_vram, total_ram))
 if not args.always_normal_vram and not args.always_cpu:
     if lowvram_available and total_vram <= 4096:
-        print("Enabling lowvram mode for GPUs with 4GB or less. Use --always-normal-vram to bypass this.")
+        print("Trying to enable lowvram mode because your GPU seems to have 4GB or less. If you don't want this use: --always-normal-vram")
         set_vram_to = VRAMState.LOW_VRAM
 
-# Handle Out of Memory exception
 try:
     OOM_EXCEPTION = torch.cuda.OutOfMemoryError
 except:
     OOM_EXCEPTION = Exception
 
-# Xformers integration for performance optimization
 XFORMERS_VERSION = ""
 XFORMERS_ENABLED_VAE = True
 if args.disable_xformers:
@@ -160,15 +148,15 @@ else:
             XFORMERS_VERSION = xformers.version.__version__
             print("xformers version:", XFORMERS_VERSION)
             if XFORMERS_VERSION.startswith("0.0.18"):
-                print("\nWARNING: xformers version 0.0.18 may produce black images when generating high-resolution images.")
-                print("Please downgrade or upgrade xformers to avoid this issue.\n")
+                print()
+                print("WARNING: This version of xformers has a major bug where you will get black images when generating high resolution images.")
+                print("Please downgrade or upgrade xformers to a different version.")
+                print()
                 XFORMERS_ENABLED_VAE = False
         except:
             pass
     except:
         XFORMERS_IS_AVAILABLE = False
-
-
 def is_nvidia():
     global cpu_state
     if cpu_state == CPUState.GPU:
